@@ -6,14 +6,18 @@ const jwt = require('jsonwebtoken');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
- /* birthday: { type: Date, required: true },
-  state: { type: String, required: true },
-  gender: { type: String, required: true },
-  account_state: { type: Number, default: 0 },*/
+  address: { type: String },
+  birthdate: { type: Date },
+  gender: { type: String },
+  role: { type: String },
+  email: { type: String },
+  phone: { type: String },
+  account_state: { type: Number, default: 0 },
 });
 
 const User = mongoose.model('User', userSchema);
-// Add CRUD methods
+
+//  CRUD methods ---> <Users 
 User.createUser = async function (userData) {
   const user = new User(userData);
   return user.save();
@@ -30,6 +34,8 @@ User.updateUser = function (userId, updatedUserData) {
 User.deleteUser = function (userId) {
   return User.findByIdAndDelete(userId);
 };
+
+
 
 module.exports = User;
 

@@ -4,6 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth'); 
+const hosRoutes = require('./routes/hospital'); 
+const users = require('./routes/usersApi'); 
+
 const cors = require('cors');
 
 const app = express();
@@ -20,6 +23,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
   app.use('/auth', authRoutes);
+  app.use('/hospital', hosRoutes);
+  app.use('/users', users);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

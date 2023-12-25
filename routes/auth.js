@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const tokenMiddleware = require('../middlewares/auth'); // Update the path accordingly
-const User = require('../models/user'); // Import the user model
+const tokenMiddleware = require('../middlewares/auth'); 
+const User = require('../models/user'); 
 
 router.post('/register', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, gender, role, email, phone, account_state, address, birthdate } = req.body;
 
     // Check if the username is already taken
     const existingUser = await User.findOne({ username });
@@ -15,15 +15,32 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'Username is already taken' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user document
-
+    
     const newUser = new User({
-      username, password :hashedPassword
-      /*, address, birthday, state, gender*/
+      username,
+      password: hashedPassword,
+      gender,
+      role,
+      email,
+      phone,
+      account_state,
+      address,
+      birthdate,
+    });
+    await newUser.save();
+   /* const newUser = new User({
+      username: 'exampleUser',
+      password: 'hashedPassword',  // You should use a hashed password here
+      address: '123 Main St',
+      birthday: new Date('1990-01-01'),
+      gender: 'male',
+      role: 'user',
+      email: 'user@example.com',
+      phone: '123-456-7890',
+      account_state: 1,
     });
     
-    await newUser.save();
+*/
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -88,6 +105,17 @@ router.get('/getUser/:userId', async (req, res) => {
   }
 });
 
+//
+router.get('/listUsers', async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.json(users);
+  } catch (error) {
+    console.error('Error getting user list:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // Update a user by ID
 router.put('/updateUser/:userId', async (req, res) => {
@@ -122,5 +150,28 @@ router.delete('/deleteUser/:userId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+router.put('/activateDeactivateUser/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Toggle the account_state
+    user.account_state = user.account_state === 0 ? 1 : 0;
+    
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error activating/deactivating user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = router;
