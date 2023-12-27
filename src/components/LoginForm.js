@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import bgImg from '../assets/img1.jpg';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -52,9 +51,6 @@ const LoginForm = () => {
       <button className='btn'>Sign In</button>
           </form>
         </div>
-        <div className="col-2">
-          <img src={bgImg} alt="" />
-    </div>
       </div>
   );
 };
