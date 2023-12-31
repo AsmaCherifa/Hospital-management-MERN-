@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth'); 
 const hosRoutes = require('./routes/hospital'); 
 const users = require('./routes/usersApi'); 
+const medicalRecordRoutes = require('./routes/recordsApi');
+const appointementRoute = require('./routes/appointementApi');
 
 const cors = require('cors');
 
@@ -25,6 +27,8 @@ db.once('open', () => {
   app.use('/auth', authRoutes);
   app.use('/hospital', hosRoutes);
   app.use('/users', users);
+  app.use('/records', medicalRecordRoutes);
+  app.use('/appointement', appointementRoute);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
