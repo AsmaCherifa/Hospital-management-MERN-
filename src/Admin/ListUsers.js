@@ -45,35 +45,30 @@ const ListUsers  = () => {
     }
   };
 
-
   return (
 
     /*
-
-
-
-                  <tr>
-                        <td>Project Apollo</td>
-                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                        <td><span class="badge bg-success">Done</span></td>
-                        <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                    </tr>
-                    <tr>
-                        <td>Project Fireball</td>
-                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                        <td><span class="badge bg-danger">Cancelled</span></td>
-                        <td class="d-none d-md-table-cell">William Harris</td>
-                    </tr>
-                  </tbody>
-                </table>
+    <tr>
+          <td>Project Apollo</td>
+          <td class="d-none d-xl-table-cell">01/01/2023</td>
+          <td class="d-none d-xl-table-cell">31/06/2023</td>
+          <td><span class="badge bg-success">Done</span></td>
+          <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+      </tr>
+      <tr>
+          <td>Project Fireball</td>
+          <td class="d-none d-xl-table-cell">01/01/2023</td>
+          <td class="d-none d-xl-table-cell">31/06/2023</td>
+          <td><span class="badge bg-danger">Cancelled</span></td>
+          <td class="d-none d-md-table-cell">William Harris</td>
+      </tr>
+    </tbody>
+  </table>
 
                 
 
     */
     <div>
-      <h1>User Dashboard</h1>      
         <table className="table table-hover my-0">
         <thead>
           <tr>
@@ -99,6 +94,7 @@ const ListUsers  = () => {
               <td>{user.role}</td>
               <td>{user.email}</td>
               <td>{user.phone}</td>
+            
               <td>{user.account_state === 0 ? <span class="badge bg-danger">Inactive</span>: <span class="badge bg-success">Active</span>}</td>
               <td>
                 {user.account_state === 0 ? (

@@ -35,7 +35,8 @@ const LoginPage = () => {
       <button onClick={handleLogin}>Login</button>
       <p>{message}</p>
     </div>
-  );
-};
 
+
+  );
+}
 export default LoginPage;
